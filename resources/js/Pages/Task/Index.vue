@@ -2,11 +2,11 @@
 
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {Link} from "@inertiajs/vue3";
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps(['tasks']);
 
-
-
+console.log(props);
 
 </script>
 
@@ -39,6 +39,9 @@ const props = defineProps(['tasks']);
                     </tr>
                 </tbody>
             </table>
+            <div>
+                <Pagination class="mt-7" :links="props.tasks.meta.links"/>
+            </div>
         </div>
     </MainLayout>
 

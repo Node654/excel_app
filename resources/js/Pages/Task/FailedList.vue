@@ -2,6 +2,7 @@
 
 import MainLayout from "@/Layouts/MainLayout.vue";
 import {Link} from "@inertiajs/vue3";
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps(['failedRows']);
 console.log(props.failedRows.data);
@@ -37,6 +38,7 @@ console.log(props.failedRows.data);
                 </tbody>
             </table>
             <Link :href="route('task.index')" class="text-sky-400 text-2xl">Tasks</Link>
+            <Pagination :links="props.failedRows.meta.links"></Pagination>
         </div>
     </MainLayout>
 

@@ -12,11 +12,11 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Task/Index', ['tasks' => TaskResource::collection(Task::all())]);
+        return Inertia::render('Task/Index', ['tasks' => TaskResource::collection(Task::query()->paginate(5))]);
     }
 
     public function failedList(Task $task)
     {
-        return Inertia::render('Task/FailedList', ['failedRows' => FailedRowResource::collection($task->failedRows)]);
+        return Inertia::render('Task/FailedList', ['failedRows' => FailedRowResource::collection($task->failedRows()->paginate(5))]);
     }
 }
