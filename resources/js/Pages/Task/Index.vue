@@ -6,8 +6,6 @@ import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps(['tasks']);
 
-console.log(props);
-
 </script>
 
 <template>

@@ -38,7 +38,7 @@ console.log(props.failedRows.data);
                 </tbody>
             </table>
             <Link :href="route('task.index')" class="text-sky-400 text-2xl">Tasks</Link>
-            <Pagination :links="props.failedRows.meta.links"></Pagination>
+            <Pagination class="mt-7" :links="props.failedRows.meta.links"/>
         </div>
     </MainLayout>
 
