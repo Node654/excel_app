@@ -17,11 +17,13 @@ class StoreRequest extends FormRequest
 
         return [
             'file' => 'required|file',
+            'type' => 'required|integer|in:1,2',
         ];
     }
 
-    public function putAndCreate(): File
+    public function putAndCreate(): array
     {
-        return Import::putAndCreate($this->validated()['file']);
+        $data = $this->validated();
+        return ['file' => Import::putAndCreate($data['file']), 'type' => $data['type']];
     }
 }

@@ -24,14 +24,12 @@ class ImportProject implements SkipsOnFailure, ToCollection, WithHeadingRow, Wit
     {
         $typesMap = $this->getTypesMap(Type::all());
         foreach ($collection as $row) {
+
             if (! isset($row['naimenovanie'])) {
                 continue;
             }
             $projectFactory = ProjectFactory::make($typesMap, $row);
-            Project::query()->updateOrCreate([
-                'type_id' => $projectFactory->getValues()['type_id'],
-                'title' => $row['naimenovanie'],
-            ], $projectFactory->getValues());
+            Project::updateOrCreate($projectFactory);
         }
     }
 

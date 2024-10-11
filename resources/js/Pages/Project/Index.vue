@@ -2,10 +2,13 @@
 
 import MainLayout from "@/Layouts/MainLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     projects: Object
 })
+
+console.log(props.projects);
 
 </script>
 
@@ -32,14 +35,14 @@ const props = defineProps({
                         <th class="border">Has_investors</th>
                         <th class="border">Worker_count</th>
                         <th class="border">Service_count</th>
+                        <th class="border">Payments</th>
                     </tr>
-
                 </thead>
-                    <tbody class="border">
+                <tbody class="border">
                     <tr v-for="project in props.projects.data">
                         <td class="border">{{ project.id }}</td>
                         <td class="border">{{ project.type.title }}</td>
-                        <td class="border">{{ project.title.path }}</td>
+                        <td class="border">{{ project.title }}</td>
                         <td class="border">{{ project.createdAtTime }}</td>
                         <td class="border">{{ project.contractedAt }}</td>
                         <td class="border">{{ project.deadline }}</td>
@@ -49,6 +52,7 @@ const props = defineProps({
                         <td class="border">{{ project.hasInvestors }}</td>
                         <td class="border">{{ project.workerCount }}</td>
                         <td class="border">{{ project.serviceCount }}</td>
+                        <td class="border" v-if="project.payments"><Link :href="route('payments.index', project.id)" class="text-red-700">Payments</Link></td>
                     </tr>
                 </tbody>
             </table>

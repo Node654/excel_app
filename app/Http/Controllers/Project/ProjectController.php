@@ -14,7 +14,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::paginate(5);
+        $projects = Project::paginate();
         return Inertia::render('Project/Index', ['projects' => ProjectResource::collection($projects)]);
     }
 
@@ -26,11 +26,12 @@ class ProjectController extends Controller
 
     public function importStore(StoreRequest $request)
     {
-        $file = $request->putAndCreate();
+        $fileAndType = $request->putAndCreate();
         $task = Task::create([
             'user_id' => auth()->id(),
-            'file_id' => $file->id,
+            'file_id' => $fileAndType['file']->id,
+            'type' => $fileAndType['type']
         ]);
-        ImportProjectExcelFileJob::dispatchSync($file->path, $task);
+        ImportProjectExcelFileJob::dispatchSync($fileAndType['file']->path, $task);
     }
 }

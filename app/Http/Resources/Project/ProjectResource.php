@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Project;
 
+use App\Http\Resources\Payment\PaymentResource;
 use App\Http\Resources\Type\TypeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,7 +28,8 @@ class ProjectResource extends JsonResource
             'hasOutsource' => isset($this->has_outsource) ? 'Да' : 'Нет',
             'hasInvestors' => isset($this->has_investors) ? 'Да' : 'Нет',
             'workerCount' => $this->worker_count,
-            'serviceCount' => $this->service_count
+            'serviceCount' => $this->service_count,
+            'payments' => $this->payments->count() > 0 ? PaymentResource::collection($this->payments) : null,
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Task\TaskController;
@@ -35,6 +36,10 @@ Route::controller(ProjectController::class)->group(function () {
 Route::controller(TaskController::class)->group(function () {
     Route::get('/tasks', 'index')->name('task.index');
     Route::get('/tasks/{task}/failed_list', 'failedList')->name('tasks.failed-list');
+})->middleware('auth:sanctum');
+
+Route::controller(PaymentController::class)->group(function () {
+    Route::get('/payments/{project}', 'index')->name('payments.index');
 })->middleware('auth:sanctum');
 
 require __DIR__.'/auth.php';

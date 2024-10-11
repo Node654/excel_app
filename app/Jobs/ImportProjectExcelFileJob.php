@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Imports\ImportProject;
+use App\Imports\ProjectDynamicImport;
 use App\Models\Task;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -30,6 +31,17 @@ class ImportProjectExcelFileJob implements ShouldQueue
         $this->task->update([
             'status' => 2,
         ]);
+        $methodName = 'import'.$this->task->type;
+        $this->$methodName();
+    }
+
+    public function import1()
+    {
         Excel::import(new ImportProject($this->task), $this->filePath, 'public');
+    }
+
+    public function import2()
+    {
+        Excel::import(new ProjectDynamicImport($this->task), $this->filePath, 'public');
     }
 }

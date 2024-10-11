@@ -7,6 +7,10 @@ import {router} from "@inertiajs/vue3";
 const fileInput = useTemplateRef('file');
 const fileExcel = ref(null);
 
+const type = defineModel('type', {
+    default: 1,
+});
+
 function selectExcel() {
     fileInput.value.click();
 }
@@ -18,7 +22,12 @@ function addFile(e) {
 function storeExcel() {
     const formData = new FormData();
     formData.append('file', fileExcel.value);
-    router.post('/projects/import/store', formData);
+    formData.append('type', type.value);
+    router.post('/projects/import/store', formData, {
+        onSuccess: () => {
+            fileExcel.value = null;
+        }
+    });
 }
 
 </script>
@@ -27,7 +36,10 @@ function storeExcel() {
 
     <MainLayout>
         <div class="flex justify-center">
-            <form class="mt-5 mr-10">
+            <form class="mt-5 mr-10 flex justify-center">
+                <div class="mr-5">
+                    <input type="number" min="1" max="2" class="w-28 p-5 rounded-full" v-model.number="type">
+                </div>
                 <div>
                     <input @change.prevent="addFile" type="file" ref="file" class="hidden">
                     <button type="button" @click.prevent="selectExcel" class="hover:bg-gray-600 hover:text-green-500 w-28 p-5 text-sky-50 bg-sky-500 rounded-full">Excel</button>
