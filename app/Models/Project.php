@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
-    use HasFactory;
-
     protected $guarded = false;
     protected $table = 'projects';
     protected $casts = [
